@@ -1,0 +1,29 @@
+.dnd-file-drop-zone {
+  display: inline-block;
+  border: 1px dashed black;
+  padding: 10px;
+}
+
+.dnd-file-list-view .dnd-file-list {
+  width: 100%;
+  border-radius: 8px;
+  background-color: black;
+  color: white;
+  margin: 10px 0;
+}
+
+.dnd-file-list-view .dnd-file-list .dnd-file-name {
+  font-weight: 600;
+  padding-left: 10px;
+  font-size: 0.8rem;
+}
+
+.dnd-file-list-view .dnd-file-list .dnd-file-size {
+  padding-left: 10px;
+  font-size: 0.6rem;
+}
+
+.dnd-file-list-view .dnd-file-list .dnd-file-del {
+  padding-left: 10px;
+  font-size: 0.7rem;
+}
