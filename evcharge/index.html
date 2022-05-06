@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=91a232c815b985a3c03bf9bee3c993a7&libraries=services"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="evcharge.js"></script>
     <title>Document</title>
 </head>
@@ -32,7 +33,7 @@
 		var map = new kakao.maps.Map(container, options);
 
         var geocoder = new kakao.maps.services.Geocoder();
-geocoder.coord2Address(126.570667, 33.450701, (e)=>{console.log(e[0].address.address_name)})
+
 
 
 var circle = new kakao.maps.Circle({
@@ -47,18 +48,54 @@ var circle = new kakao.maps.Circle({
 }); 
 
 circle.setMap(map)
+let addr_s = ''
+getInfo(new kakao.maps.LatLng(33.450701, 126.570667))
+function getInfo(coords,addr='제주특별자치도 제주시',radius=3000){
+    const lat = coords.getLat() || 33.450701
+    const lng = coords.getLng() || 126.570667
+    const a = fetch('http://127.0.0.1:48952/ev/info',{
+        method:'POST',
+        body:JSON.stringify({coord:{'lat':lat,'lng':lng,'addr':addr,radius:radius}}),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(resp=>resp.json()).then(body=>setMarkers(body.data))
+}
 
 
+kakao.maps.event.addListener(map, 'click', function(e) {
+    markers.map(marker=>marker.setMap(null))
+    markers=[]
+    circle.setPosition(e.latLng)
+    circle.setMap(map)
+    geocoder.coord2Address(e.latLng.getLng(), e.latLng.getLat(), (resp)=>{
 
-const a = fetch('http://127.0.0.1:48952/ev/info',{
-    method:'POST',
-    body:JSON.stringify({coord:{'lat':33.450701,'lng':126.570667,'addr':'제주특별자치도 제주시',radius:3000}}),
-    headers: {
-        'Content-Type': 'application/json'
+        const addr = resp[0].address.address_name
+        addr_s = addr
+        getInfo(e.latLng,addr)
+
+    })
+
+})
+
+function getLocation() {
+    if (navigator.geolocation) { // GPS를 지원하면
+      navigator.geolocation.getCurrentPosition(function(position) {
+        alert(position.coords.latitude + ' ' + position.coords.longitude);
+      }, function(error) {
+        console.error(error);
+      }, {
+        enableHighAccuracy: false,
+        maximumAge: 0,
+        timeout: Infinity
+      });
+    } else {
+      alert('GPS를 지원하지 않습니다');
     }
-}).then(resp=>resp.json()).then(body=>setMarkers(body.data))
+  }
+  getLocation();
 
-
+let markers = []
 function setMarkers(data){
 
     for (var i = 0; i < data.length; i ++) {
@@ -73,6 +110,7 @@ function setMarkers(data){
             map: map, // 마커를 표시할 지도
             position: new kakao.maps.LatLng(data[i].lat, data[i].lng), // 마커를 표시할 위치
         });
+        markers.push(marker)
     }
 }
 	</script>
