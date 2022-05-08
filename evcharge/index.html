@@ -53,8 +53,7 @@ getInfo(new kakao.maps.LatLng(33.450701, 126.570667))
 function getInfo(coords,addr='제주특별자치도 제주시',radius=3000){
     const lat = coords.getLat() || 33.450701
     const lng = coords.getLng() || 126.570667
-    const URL = 'http://3.37.160.231:48571/api/evcharge/info'
-    const a = fetch('http://127.0.0.1:48952/ev/info',{
+    const a = fetch('http://3.37.160.231:48571/api/evcharge/info',{
         method:'POST',
         body:JSON.stringify({coord:{'lat':lat,'lng':lng,'addr':addr,radius:radius}}),
         headers:{
@@ -120,6 +119,15 @@ function setMarkers(data){
     }
     console.log(addr_array.length)
 }
+var apiGeolocationSuccess = function(position) {
+	alert("API geolocation success!\n\nlat = " + position.coords.latitude + "\nlng = " + position.coords.longitude);
+};
+
+var tryAPIGeolocation = function() {
+	fetch( "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDCa1LUe1vOczX1hO_iGYgyo8p_jYuGOPU",{method:'POST'}).then(d=>d.json())
+  
+};
+tryAPIGeolocation()
 
 	</script>
 </body>
