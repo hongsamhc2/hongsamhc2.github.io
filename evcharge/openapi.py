@@ -4,7 +4,7 @@ import db
 
 
 
-SERVICE_KEY = ''
+SERVICE_KEY = '85SVNYrwH8xXJbjJgkYoSQsBQqzKtn7WO1JdYfXeeMT37b9Br6ClP7F4gnruv/N4aY6wdkDHWNvzieim1yz98A=='
 def getData(SERVICE_KEY,pageNo=1):
     url = 'http://apis.data.go.kr/B552584/EvCharger/getChargerInfo'
     params ={'serviceKey' : SERVICE_KEY, 'pageNo' : pageNo, 'numOfRows' : '9999' }

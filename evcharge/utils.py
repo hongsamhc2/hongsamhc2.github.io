@@ -2,7 +2,7 @@ import json
 import xmltodict
 import bs4
 import requests
-
+import os
 
 def xml_to_json(response):
     response = response.encode('utf-8')
@@ -46,32 +46,15 @@ def get_geocoding(address='서울특별시 서대문구 세검정로 94-1 , 2층
     r.update(c)
     return c
 
-print(get_geocoding('제주특별자치도 제주시 노형동 919-1'))
+def exists_path(filepath=''):
+    return os.path.exists(filepath)
 
-from math import sin, cos, sqrt, atan2, radians
 
-# approximate radius of earth in km
-R = 6373.0
-
-lat1 = radians(33.484743248135956)
-lon1 = radians(126.48050924758213)
-lat2 = radians(33.4853)
-lon2 = radians(126.4815)
-
-dlon = lon2 - lon1
-dlat = lat2 - lat1
-print('div lat',float(dlat / 2))
-print('sin lat',sin(dlat / 2))
-print('sin lat squared',sin(dlat / 2)**2)
-print('cos(lat1)',cos(lat1))
-print('cos(lat2)',cos(lat2))
-print('cos(lat1) * cos(lat2) * sin(dlon / 2)**2',cos(lat1) * cos(lat2) * sin(dlon / 2)**2)
-a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
-
-print(a,a)
-c = 2 * atan2(sqrt(a), sqrt(1 - a))
-
-distance = R * c
-
-print("Result:", distance)
-print("Should be:", 278.546, "km")
+class progress:
+    def __init__(self):
+        self.i = 0
+    def bar(self):
+        print(f'{self.i}\r',end='')
+        self.i +=1
+    def init(self,i=0):
+        self.i = i
