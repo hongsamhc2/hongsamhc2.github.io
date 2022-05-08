@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=91a232c815b985a3c03bf9bee3c993a7&libraries=services"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <script src="evcharge.js"></script>
     <title>Document</title>
 </head>
@@ -53,10 +54,11 @@ getInfo(new kakao.maps.LatLng(33.450701, 126.570667))
 function getInfo(coords,addr='제주특별자치도 제주시',radius=3000){
     const lat = coords.getLat() || 33.450701
     const lng = coords.getLng() || 126.570667
-    const a = fetch('http://127.0.0.1:48952/ev/info',{
+    const a = fetch('http://192.168.1.100:5000/api/evcharge/info',{
         method:'POST',
         body:JSON.stringify({coord:{'lat':lat,'lng':lng,'addr':addr,radius:radius}}),
-        headers: {
+        headers:{
+            'Authorization':'alkcn122123qalkn3jnvjel34tj79g3sajsnck678',
             'Content-Type': 'application/json'
         }
     }).then(resp=>resp.json()).then(body=>setMarkers(body.data))
@@ -113,6 +115,16 @@ function setMarkers(data){
         markers.push(marker)
     }
 }
+const lat =  33.450701
+const lng =  126.570667
+fetch('http://3.37.160.231:48571/api/evcharge/info',{
+    method:'POST',
+    body:JSON.stringify({coord:{'lat':lat,'lng':lng,'addr':'',radius:3000}}),
+    headers:{
+        'Authorization':'alkcn122123qalkn3jnvjel34tj79g3sajsnck678',
+        'Content-Type': 'application/json'
+    }
+}).then(d=>d.json()).then(d=>console.log(d))
 	</script>
 </body>
 </html>
