@@ -2,7 +2,8 @@ import pymongo
 
 URI = "mongodb://localhost:27017/evcharge"
 CLIENT = pymongo.MongoClient(URI)
-
+def create_index(index=[('addr','text')],db='evcharge',collection='info'):
+    CLIENT[db][collection].create_index(index)
 def update_one(query={},update_query={},db='evcharge',collection='info',upsert=True):
     try:
         CLIENT[db][collection].update_one(query,{'$set':update_query},upsert=upsert)
