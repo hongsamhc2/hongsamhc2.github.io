@@ -82,7 +82,7 @@ kakao.maps.event.addListener(map, 'click', function(e) {
 function getLocation() {
     if (navigator.geolocation) { // GPS를 지원하면
       navigator.geolocation.getCurrentPosition(function(position) {
-        alert(position.coords.latitude + ' ' + position.coords.longitude);
+        console.log(position.coords.latitude + ' ' + position.coords.longitude);
       }, function(error) {
         console.error(error);
       }, {
@@ -114,16 +114,7 @@ function setMarkers(data){
         markers.push(marker)
     }
 }
-const lat =  33.450701
-const lng =  126.570667
-fetch('http://3.37.160.231:48571/api/evcharge/info',{
-    method:'POST',
-    body:JSON.stringify({coord:{'lat':lat,'lng':lng,'addr':'',radius:3000}}),
-    headers:{
-        'Authorization':'alkcn122123qalkn3jnvjel34tj79g3sajsnck678',
-        'Content-Type': 'application/json'
-    }
-}).then(d=>d.json()).then(d=>console.log(d))
+
 	</script>
 </body>
 </html>
