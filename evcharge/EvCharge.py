@@ -17,6 +17,7 @@ class EvCharge:
 
     def getFullData(self,servicekey,endPageNo=210):
         self.p.init(1)
+        db.create_index()
         result = []
         for i in range(1,int(endPageNo)):
             self.p.bar()
@@ -43,6 +44,7 @@ class EvCharge:
     def importMongo(self,filepath='./data/evcharge.json'):
         with open(filepath,'r',encoding='utf-8') as f:
             data = json.load(f)
+        db.create_index()
         self.insertMongo(data)
         return data
     
