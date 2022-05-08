@@ -53,7 +53,8 @@ getInfo(new kakao.maps.LatLng(33.450701, 126.570667))
 function getInfo(coords,addr='제주특별자치도 제주시',radius=3000){
     const lat = coords.getLat() || 33.450701
     const lng = coords.getLng() || 126.570667
-    const a = fetch('http://3.37.160.231:48571/api/evcharge/info',{
+    const URL = 'http://3.37.160.231:48571/api/evcharge/info'
+    const a = fetch('http://127.0.0.1:48952/ev/info',{
         method:'POST',
         body:JSON.stringify({coord:{'lat':lat,'lng':lng,'addr':addr,radius:radius}}),
         headers:{
@@ -98,9 +99,12 @@ function getLocation() {
 
 let markers = []
 function setMarkers(data){
-
+    console.log(data.length)
+    const addr_array = []
     for (var i = 0; i < data.length; i ++) {
-    
+        if (addr_array.includes(data[i].addr)){
+            continue
+        }
         // 마커 이미지의 이미지 크기 입니다
         var imageSize = new kakao.maps.Size(24, 35); 
         
@@ -112,7 +116,9 @@ function setMarkers(data){
             position: new kakao.maps.LatLng(data[i].lat, data[i].lng), // 마커를 표시할 위치
         });
         markers.push(marker)
+        addr_array.push(data[i].addr)
     }
+    console.log(addr_array.length)
 }
 
 	</script>
