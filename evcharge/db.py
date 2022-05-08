@@ -4,18 +4,14 @@ URI = "mongodb://localhost:27017/evcharge"
 CLIENT = pymongo.MongoClient(URI)
 
 def update_one(query={},update_query={},db='evcharge',collection='info',upsert=True):
-
     try:
         CLIENT[db][collection].update_one(query,{'$set':update_query},upsert=upsert)
-        state = {'msg':f'success || {query}=>{update_query} || upsert={upsert}'}
-        print(state)
     except Exception as e:
         state = {'msg':'fail','except':str(e)}
         print(state)
-    return state
 
 def find(query={},select_query={'_id':0},sort=[('_id',1)],limit=0,skip=0,db='evcharge',collection='info'):
-    data =list(CLIENT[db][collection].finde(query,select_query).sort(sort).limit(limit).skip(skip))
+    data =list(CLIENT[db][collection].find(query,select_query).sort(sort).limit(limit).skip(skip))
     return data
 
 
