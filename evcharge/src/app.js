@@ -31,13 +31,7 @@ class EvCharge {
         this.map = this.drawMap();
         this.currentMarker=this.addMarker(new kakao.maps.LatLng(this.currentLat,this.currentLng),marker_cur)
         this.requestData(this.currentLat ,this.currentLng,this.addr,this.radius).then(d=>this.addEvMarkerArray(d.data));
-        kakao.maps.event.addListener(this.map,'click',(e)=>{
-            this.removeEvMarkerArray()
-            this.currentMarker.setMap(null)
-            this.currentMarker=this.addMarker(new kakao.maps.LatLng(e.latLng.getLat(),e.latLng.getLng()),marker_cur)
-            this.moveMap(e.latLng)
-            this.getCoordToAddr(e)
-        })
+
 
         return this;
     }
@@ -117,9 +111,22 @@ class EvCharge {
         this.map.panTo(latLng)
     }
 
+    mapClick(callback){
+        kakao.maps.event.addListener(this.map,'click',(e)=>{
+            callback(e)
+        })
+    }
+
 }
 
 
 
 const evc =new EvCharge('#map')
 evc.init()
+evc.mapClick((e)=>{
+    evc.removeEvMarkerArray()
+    evc.currentMarker.setMap(null)
+    evc.currentMarker=evc.addMarker(new kakao.maps.LatLng(e.latLng.getLat(),e.latLng.getLng()),marker_cur)
+    evc.moveMap(e.latLng)
+    evc.getCoordToAddr(e)
+})
