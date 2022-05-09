@@ -9,19 +9,19 @@ class EvCharge:
     def __init__(self):
         pass
 
-    def getData(self,servicekey,pageNo='1',numOfRows='9999'):
+    def getInfoData(self,servicekey,pageNo='1',numOfRows='9999'):
         url = 'http://apis.data.go.kr/B552584/EvCharger/getChargerInfo'
         params ={'serviceKey' : str(servicekey), 'pageNo' : str(pageNo), 'numOfRows' : str(numOfRows)}
         response = requests.get(url, params=params)
         return response
 
-    def getFullData(self,servicekey,endPageNo=210):
+    def getInfoFullData(self,servicekey,endPageNo=210):
         self.p.init(1)
         db.create_index()
         result = []
         for i in range(1,int(endPageNo)):
             self.p.bar()
-            response = self.getData(servicekey,pageNo=i)
+            response = self.getInfoData(servicekey,pageNo=i)
             json_data = utils.xml_to_json(response.text)
             header = json_data['response']['header']
             numOfRows = int(header['numOfRows'])
@@ -58,7 +58,9 @@ class EvCharge:
         ilat = {'$degreesToRadians':float(lat)}
         ilng = {'$degreesToRadians':float(lng)}
         radius = radius/1000
-        match = {'$match':{'$text':{'$search':addr}}}
+        if addr:
+            match = {'$match':{'$text':{'$search':addr}}}
+            query.append(match) 
         dlng = {'$degreesToRadians' : {'$convert':{'input':'$lng','to':1}}}
         dlat = {'$degreesToRadians' : {'$convert':{'input':'$lat','to':1}}}
         latDiv2 = {'$divide':[{'$subtract':[dlat,ilat]},2]}
@@ -78,10 +80,9 @@ class EvCharge:
         doubleAtan2 = { '$multiply':[2,atan2]} 
         distance = { '$multiply':[6373.0,doubleAtan2]}
         addFieldDistance =  {'$addFields':{'distance':distance }}
-        query.append(match)
         query.append(addFieldDistance)
         query.append({'$match':{'distance':{'$lte':radius}}})
-        query.append({'$sort':{'$distance':1}})
+        query.append({'$sort':{'distance':1}})
         query.append({'$project':{'_id':0}})
         # query.append({'$group':{'_id':'$addr','statNm':{'$addToSet':'$statNm'},'chgerId':{'$addToSet':'$chgerId'}}})
         result = db.aggregate(query)
@@ -104,7 +105,7 @@ if __name__ == "__main__":
     if exec =='full':
         if servicekey !="":
             print('Start Get Full DataSets')
-            data = evc.getFullData(servicekey,210)
+            data = evc.getInfoFullData(servicekey,210)
             evc.insertMongo(data)
         else:
             print('Service Key is required')

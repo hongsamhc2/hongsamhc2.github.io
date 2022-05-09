@@ -14,4 +14,8 @@ Cargo.lock
 *.pdb
 
 data/
+practice/
 test.py
+test.js
+node_modules/
+__pycache__/
