@@ -15,3 +15,6 @@ python name.py --num 30 --filepath ./names.txt
 ---
 num : 이름 생성 개수(기본값 : 1)
 filepath : 생성된 이름 데이터 저장 경로 (기본값: './names.txt')
+
+
+Blog : https://twentytwentyone.tistory.com/32
