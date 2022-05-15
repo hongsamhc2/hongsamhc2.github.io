@@ -8,6 +8,11 @@ import "./resources/css/app.css";
 import "./resources/css/reset.css";
 import EvCharge from "./pages/evCharge";
 
+// import names from './packages/simulator/upload/json/names.json'
+// import { generate } from "./packages/simulator/name";
+
+// const a = generate(names,2)
+// console.log(a)
 
 export default function App() {
   return (
