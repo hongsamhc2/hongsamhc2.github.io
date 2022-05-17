@@ -23,6 +23,9 @@ export default function Main(props) {
             <li>
                 <Link to="/zip">zip</Link>
             </li>
+            <li>
+                <Link to="/tistory">tistory</Link>
+            </li>
         </ul>
       </div>
 

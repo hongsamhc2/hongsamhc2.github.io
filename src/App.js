@@ -26,6 +26,7 @@ export default function App() {
           <Route exact path="/evcharge" element={<EvCharge />} />
           <Route exact path="/oauth" element={<Oauth />} />
           <Route exact path="/zip" element={<Zip />} />
+          <Route exact path="/tistory" element={<Tistory />} />
         </Routes>
       </div>
     </>
