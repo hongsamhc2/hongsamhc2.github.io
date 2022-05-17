@@ -4,7 +4,6 @@ const Tistory = () => {
     const [authCode,setAuthCode] = useState(null)
   const CLIENT_ID = "890c13ae5291fafab4fb62a71276d664";
   const REDIRECT_URI = "http://localhost:8080/tistory";
-    const CLIENT_SECRET = "890c13ae5291fafab4fb62a71276d6643f461aaa52e6bb3ba9960e8bd636cbd3ff272674"
   const url = `https://www.tistory.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   
 
