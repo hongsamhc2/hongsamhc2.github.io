@@ -17,8 +17,14 @@ export default function Main(props) {
             <li>
                 <Link to="/evcharge">EV Charging Station</Link>
             </li>
-            <li>
+            {/* <li>
                 <Link to="/oauth">Social Log in</Link>
+            </li> */}
+            <li>
+                <Link to="/zip">zip</Link>
+            </li>
+            <li>
+                <Link to="/tistory">tistory</Link>
             </li>
         </ul>
       </div>

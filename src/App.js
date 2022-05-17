@@ -8,6 +8,8 @@ import "./resources/css/app.css";
 import "./resources/css/reset.css";
 import EvCharge from "./pages/evCharge";
 import Oauth from "./pages/Oauth";
+import Zip from "./pages/zip";
+import Tistory from "./pages/tistory";
 // import names from './packages/simulator/upload/json/names.json'
 // import { generate } from "./packages/simulator/name";
 
@@ -23,6 +25,8 @@ export default function App() {
           <Route exact path="/" element={<Main />} />
           <Route exact path="/evcharge" element={<EvCharge />} />
           <Route exact path="/oauth" element={<Oauth />} />
+          <Route exact path="/zip" element={<Zip />} />
+          <Route exact path="/tistory" element={<Tistory />} />
         </Routes>
       </div>
     </>
