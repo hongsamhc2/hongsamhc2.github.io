@@ -9,7 +9,8 @@ import "./resources/css/reset.css";
 import EvCharge from "./pages/evCharge";
 import Oauth from "./pages/Oauth";
 import Zip from "./pages/zip";
-import Tistory from "./pages/tistory";
+import Tistory from "./pages/tistory/tistory";
+import TistoryCallback from "./pages/tistory/tistoryCallback";
 // import names from './packages/simulator/upload/json/names.json'
 // import { generate } from "./packages/simulator/name";
 
@@ -27,6 +28,7 @@ export default function App() {
           <Route exact path="/oauth" element={<Oauth />} />
           <Route exact path="/zip" element={<Zip />} />
           <Route exact path="/tistory" element={<Tistory />} />
+          <Route exact path="/callback/tistory" element={<TistoryCallback />} />
         </Routes>
       </div>
     </>
