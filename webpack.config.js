@@ -3,7 +3,6 @@ const HTMLWebpackPlugin = require('html-webpack-plugin')
 const dotenv = require('dotenv')
 const webpack = require('webpack')
 dotenv.config()
-console.log(process.env)
 module.exports = {
     entry: {
         index: path.resolve(__dirname, 'src', 'index.js')
